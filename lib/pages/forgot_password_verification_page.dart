@@ -4,7 +4,7 @@ import 'package:falldetection_main/common/theme_helper.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
-import 'profile_page.dart';
+import 'main/main_screen.dart';
 import 'widgets/header_widget.dart';
 
 class ForgotPasswordVerificationPage extends StatefulWidget {
@@ -137,7 +137,7 @@ class _ForgotPasswordVerificationPageState extends State<ForgotPasswordVerificat
                                 onPressed: _pinSuccess ? () {
                                   Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute(
-                                          builder: (context) => ProfilePage()
+                                          builder: (context) => MainScreen()
                                       ),
                                           (Route<dynamic> route) => false
                                   );

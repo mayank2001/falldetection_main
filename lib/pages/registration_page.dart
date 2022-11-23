@@ -4,8 +4,11 @@ import 'package:falldetection_main/common/theme_helper.dart';
 import 'package:falldetection_main/pages/widgets/header_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:falldetection_main/pages/dropzone_widget.dart';
+import 'package:falldetection_main/pages/dropped_file.dart';
 
-import 'profile_page.dart';
+
+import 'main/main_screen.dart';
 
 class RegistrationPage extends  StatefulWidget{
   @override
@@ -19,6 +22,9 @@ class _RegistrationPageState extends State<RegistrationPage>{
   final _formKey = GlobalKey<FormState>();
   bool checkedValue = false;
   bool checkboxValue = false;
+
+  get file => null;
+
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +127,7 @@ class _RegistrationPageState extends State<RegistrationPage>{
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
                         SizedBox(height: 20.0),
+
                         Container(
                           child: TextFormField(
                             obscureText: true,
@@ -137,19 +144,23 @@ class _RegistrationPageState extends State<RegistrationPage>{
                         ),
                         SizedBox(height: 20.0),
                         Container(
-                          child: TextFormField(
-                            obscureText: true,
-                            decoration: ThemeHelper().textInputDecoration(
-                                "History", "Any previous medical history"),
-                            validator: (val) {
-                              if (val!.isEmpty) {
-                                return "Please let us know";
-                              }
-                              return null;
-                            },
+                            child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.all(15),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 300,
+                                      child: DropZoneWidget(
+                                        onDroppedFile: (file) => setState(()=> file) ,
+
+                                      ),
+                                    ),
+                                    SizedBox(height: 20,),
+                                    DroppedFileWidget(file:file ),
+                                  ],
+                                )),
                           ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                        ),
 
                         SizedBox(height: 15.0),
                         FormField<bool>(
@@ -208,7 +219,7 @@ class _RegistrationPageState extends State<RegistrationPage>{
                               if (_formKey.currentState!.validate()) {
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
-                                        builder: (context) => ProfilePage()
+                                        builder: (context) => MainScreen()
                                     ),
                                         (Route<dynamic> route) => false
                                 );
